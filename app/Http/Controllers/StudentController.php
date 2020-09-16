@@ -34,7 +34,7 @@ class StudentController extends Controller{
      */
     public function index(Request $request)
     {
-        $students = $this->studentRepository->filter($request);
+        $students = $this->studentRepository->filter($request->all());
         return view("students.list", compact('students'), compact('request'));
     }
 

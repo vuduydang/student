@@ -57,58 +57,57 @@ class StudentRepository extends EloquentRepository implements StudentRepositoryI
         return Date('Y-m-d_') . $file->getClientOriginalName();
     }
 
-    public function filter($value)
+    public function filter(array $value)
     {
         $students = $this->_model->query();
+            if (array_key_exists('phone',$value)) {
+                $regex = '';
+                if (in_array('viettel', $value['phone']))
+                {
+                    $regex .= '(03[2-9]|09[6|7|8]|08[6])+([0-9]{7})|';
+                }
+                if (in_array('vinaphone', $value['phone']))
+                {
+                    $regex .= '(09[1|4]|08[1-5|8])+([0-9]{7})|';
+                }
+                if (in_array('mobifone', $value['phone']))
+                {
+                    $regex .= '(090|089|07[0|6-9])+([0-9]{7})|';
+                }
+                $students->where('phone', 'regexp', rtrim($regex, '|'));
+            }
+
+            //filter Status
+            if (array_key_exists('status', $value)) {
+                if (in_array('hoc_xong',$value['status'])) {
+                    $students->where('status','=','1');
+                }
+                if (in_array('hoc_di',$value['status'])) {
+                    $students->where('status','=','0');
+                }
+                if (in_array('thoi_hoc',$value['status'])) {
+                    $students->where('status','=','-1');
+                }
+            }
+
+            if (array_key_exists('filter',$value)) {
+
+                //filter Age
+                $min = $value['age_min'] == null ? 0 : $value['age_min'];
+                $max = $value['age_max'] == null ? 100 : $value['age_max'];
+                $age_min = Carbon::now()->subYears($min)->toDateString();
+                $age_max = Carbon::now()->subYears($max)->toDateString();
+                $students->where('birthday','<=',$age_min)
+                    ->where('birthday','>=',$age_max);
+
+                //filter Score
+                $min = $value['score_min'] == null ? 0 : $value['score_min'];
+                $max = $value['score_max'] == null ? 10 : $value['score_max'];
+                $students->where('avg_score','>=',$min)
+                    ->where('avg_score','<=',$max);
+            }
 
 
-        if ($value->has('phone'))
-        {
-            $regex = '';
-            if (in_array('viettel', $value->phone))
-            {
-                $regex .= '(03[2-9]|09[6|7|8]|08[6])+([0-9]{7})|';
-            }
-            if (in_array('vinaphone', $value->phone))
-            {
-                $regex .= '(09[1|4]|08[1-5|8])+([0-9]{7})|';
-            }
-            if (in_array('mobifone', $value->phone))
-            {
-                 $regex .= '(090|089|07[0|6-9])+([0-9]{7})|';
-            }
-            $students->where('phone', 'regexp', rtrim($regex, '|'));
-        }
-
-        //filter Score
-        if ($value->score_min + $value->score_max >0)
-        {
-            $students->where('avg_score','>=',$value->score_min)
-                ->where('avg_score','<=',$value->score_max);
-        }
-
-        //filter Age
-        if ($value->age_min + $value->age_max >0)
-        {
-            $min = Carbon::now()->subYears($value->age_min)->toDateString();
-            $max = Carbon::now()->subYears($value->age_max)->toDateString();
-            $students->where('birthday','<=',$min)
-                ->where('birthday','>=',$max);
-        }
-
-        //filter Status
-        if ($value->has('status')) {
-            if (in_array('hoc_xong',$value->status)) {
-                $students->where('status','=','1');
-            }
-            if (in_array('hoc_di',$value->status)) {
-                $students->where('status','=','0');
-            }
-            if (in_array('thoi_hoc',$value->status)) {
-                $students->where('status','=','-1');
-            }
-        }
-//        var_dump($students);die();
         return $students->paginate(20);
     }
 

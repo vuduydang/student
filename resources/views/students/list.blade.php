@@ -75,7 +75,7 @@
                                 {!! Form::label('status3', 'thôi học') !!}
                             </div>
                         </div>
-                        {!! Form::submit('Filter',['class'=>'btn btn-primary']) !!}
+                        {!! Form::submit('Filter',['class'=>'btn btn-primary','name'=>'filter']) !!}
                     </div>
                 </div>
 

@@ -10,6 +10,6 @@ interface StudentRepositoryInterface extends RepositoryInterface
 
     public function uploaderImage($action , object $request);
 
-    public function filter($value);
+    public function filter(array $value);
 
 }
