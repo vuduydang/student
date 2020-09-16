@@ -14,90 +14,71 @@
             </ol>
             <!--filter-->
             <nav class="navbar navbar-expand-lg navbar-light bg-white">
-                {!! Form::open(['method'=>'PUT']) !!}
-                <div class="collapse navbar-collapse">
+                {!! Form::open(['method'=>'GET']) !!}
+                <div class="navbar-collapse">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link p-3 bg-success d-flex rounded-circle text-light" href="{{ route('students.create') }}">
+                            <a class="nav-link p-3 border text-info d-inline" href="{{ route('students.create') }}">
                                 <i class="fas fa-plus"></i>
                             </a>
                         </li>
                         <li class="nav-item border-right ml-2"></li>
-                        <!--Filter Phone-->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownFilterPhone" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                {{__('messages.Phone')}}
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdownFilterPhone">
-                                <div class="dropdown-item">
-                                    {!! Form::checkbox('phone[]','viettel',$request->has('phone')?in_array('viettel', $request->phone):false,['id'=>'phone1','class'=>'filter-phone']) !!}
-                                    {!! Form::label('phone1', 'Viettel') !!}
-                                </div>
-                                <div class="dropdown-item">
-                                    {!! Form::checkbox('phone[]','vinaphone',$request->has('phone')?in_array('vinaphone', $request->phone):false,['id'=>'phone2','class'=>'filter-phone']) !!}
-                                    {!! Form::label('phone2', 'Vinaphone') !!}
-                                </div>
-                                <div class="dropdown-item">
-                                    {!! Form::checkbox('phone[]','mobifone',$request->has('phone')?in_array('mobifone', $request->phone):false,['id'=>'phone3','class'=>'filter-phone']) !!}
-                                    {!! Form::label('phone3', 'Mobifone') !!}
-                                </div>
-                            </div>
-                        </li>
-                        <!--Filter Age-->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownFilterAge" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                {{__('messages.Age')}}
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdownFilterAge">
-                                <div class="dropdown-item">
-                                    {!! Form::number('age_min',$request->age_min,['class'=>'form-control filter-age','placeholder' => 'min']) !!}
-                                </div>
-                                <p> to :</p>
-                                <div class="dropdown-item">
-                                    {!! Form::number('age_max',$request->age_max,['class'=>'form-control filter-age','placeholder' => 'max']) !!}
-                                </div>
-                            </div>
-                        </li>
-                        <!--Filter Score-->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownFilterScore" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                {{__('messages.Score')}}
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdownFilterScore">
-                                <div class="dropdown-item">
-                                    {!! Form::number('score_min',$request->score_min,['class'=>'form-control filter-score','placeholder' => 'min']) !!}
-                                </div>
-                                <p> to :</p>
-                                <div class="dropdown-item">
-                                    {!! Form::number('score_max',$request->score_max,['class'=>'form-control filter-score','placeholder' => 'max']) !!}
-                                </div>
-                            </div>
-                        </li>
-                        <!--Filter Status-->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownFilterStatus" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                {{__('messages.Status')}}
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdownFilterStatus">
-                                <div class="dropdown-item">
-                                    {!! Form::checkbox('status[]','hoc_xong',$request->has('status')?in_array('hoc_xong', $request->status):false,['id'=>'status1','class'=>'filter-phone']) !!}
-                                    {!! Form::label('status1', 'học xong') !!}
-                                </div>
-                                <div class="dropdown-item">
-                                    {!! Form::checkbox('status[]','hoc_di',$request->has('status')?in_array('hoc_di', $request->status):false,['id'=>'status2','class'=>'filter-phone']) !!}
-                                    {!! Form::label('status2', 'học đi') !!}
-                                </div>
-                                <div class="dropdown-item">
-                                    {!! Form::checkbox('status[]','thoi_hoc',$request->has('status')?in_array('thoi_hoc', $request->status):false,['id'=>'status3','class'=>'filter-phone']) !!}
-                                    {!! Form::label('status3', 'thôi học') !!}
-                                </div>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            {!! Form::submit('Filter',['class'=>'btn btn-primary']) !!}
-                        </li>
                     </ul>
+                    <div class="row">
+                        <div class="text-secondary p-3">
+                            <h3>{{__('messages.Phone')}}</h3>
+                            <div class="form-group">
+                                {!! Form::checkbox('phone[]','viettel',$request->has('phone')?in_array('viettel', $request->phone):false,['id'=>'phone1','class'=>'filter-phone']) !!}
+                                {!! Form::label('phone1', 'Viettel') !!}
+                            </div>
+                            <div class="form-group">
+                                {!! Form::checkbox('phone[]','vinaphone',$request->has('phone')?in_array('vinaphone', $request->phone):false,['id'=>'phone2','class'=>'filter-phone']) !!}
+                                {!! Form::label('phone2', 'Vinaphone') !!}
+                            </div>
+                            <div class="form-group">
+                                {!! Form::checkbox('phone[]','mobifone',$request->has('phone')?in_array('mobifone', $request->phone):false,['id'=>'phone3','class'=>'filter-phone']) !!}
+                                {!! Form::label('phone3', 'Mobifone') !!}
+                            </div>
+                        </div>
+                        <div class="text-secondary p-3">
+                            <h3>{{__('messages.Age')}}</h3>
+                            <div class="form-group">
+                                {!! Form::number('age_min',$request->age_min,['class'=>'form-control filter-age','placeholder' => 'min']) !!}
+                            </div>
+                            <p> to :</p>
+                            <div class="form-group">
+                                {!! Form::number('age_max',$request->age_max,['class'=>'form-control filter-age','placeholder' => 'max']) !!}
+                            </div>
+                        </div>
+                        <div class="text-secondary p-3">
+                            <h3>{{__('messages.Score')}}</h3>
+                            <div class="form-group">
+                                {!! Form::number('score_min',$request->score_min,['class'=>'form-control filter-score','placeholder' => 'min']) !!}
+                            </div>
+                            <p> to :</p>
+                            <div class="form-group">
+                                {!! Form::number('score_max',$request->score_max,['class'=>'form-control filter-score','placeholder' => 'max']) !!}
+                            </div>
+                        </div>
+                        <div class="text-secondary p-3">
+                            <h3>{{__('messages.Status')}}</h3>
+                            <div class="form-group">
+                                {!! Form::checkbox('status[]','hoc_xong',$request->has('status')?in_array('hoc_xong', $request->status):false,['id'=>'status1','class'=>'filter-phone']) !!}
+                                {!! Form::label('status1', 'học xong') !!}
+                            </div>
+                            <div class="form-group">
+                                {!! Form::checkbox('status[]','hoc_di',$request->has('status')?in_array('hoc_di', $request->status):false,['id'=>'status2','class'=>'filter-phone']) !!}
+                                {!! Form::label('status2', 'học đi') !!}
+                            </div>
+                            <div class="form-group">
+                                {!! Form::checkbox('status[]','thoi_hoc',$request->has('status')?in_array('thoi_hoc', $request->status):false,['id'=>'status3','class'=>'filter-phone']) !!}
+                                {!! Form::label('status3', 'thôi học') !!}
+                            </div>
+                        </div>
+                        {!! Form::submit('Filter',['class'=>'btn btn-primary']) !!}
+                    </div>
                 </div>
+
                 <div id="action">
                     <span>Tags:</span>
                     <div class="tags d-inline">

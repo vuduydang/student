@@ -15,8 +15,8 @@ class CreateResultsTable extends Migration
     {
         Schema::create('results', function (Blueprint $table) {
             $table->id();
-            $table->tinyInteger('student_id');
-            $table->tinyInteger('subject_id');
+            $table->integer('student_id');
+            $table->integer('subject_id');
             $table->double('score');
             $table->timestamps();
         });
