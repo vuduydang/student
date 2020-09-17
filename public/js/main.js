@@ -1,5 +1,5 @@
-let url = 'http://students.com';
-let api = 'http://students.com/api';
+let url = 'http://students.com:8000';
+let api = 'http://students.com:8000/api';
 
 //validate form update profile
 function validator(formID) {

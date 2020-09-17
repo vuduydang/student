@@ -38,6 +38,9 @@ return [
     'Birthday' => 'Ngày sinh',
     'Option' => 'Lựa chọn',
     'Female' => 'Nữ',
-    'Male' => 'Nam'
+    'Male' => 'Nam',
+    'Passed' => 'Hoàn thành',
+    'Studying' => 'Đang học',
+    'Failed' => 'Thôi học',
 
 ];

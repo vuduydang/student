@@ -63,16 +63,16 @@
                         <div class="text-secondary p-3">
                             <h3>{{__('messages.Status')}}</h3>
                             <div class="form-group">
-                                {!! Form::checkbox('status[]','hoc_xong',$request->has('status')?in_array('hoc_xong', $request->status):false,['id'=>'status1','class'=>'filter-phone']) !!}
-                                {!! Form::label('status1', 'học xong') !!}
+                                {!! Form::checkbox('status[]','Passed',$request->has('status')?in_array('Passed', $request->status):false,['id'=>'status1','class'=>'filter-phone']) !!}
+                                {!! Form::label('status1', __('messages.Passed')) !!}
                             </div>
                             <div class="form-group">
-                                {!! Form::checkbox('status[]','hoc_di',$request->has('status')?in_array('hoc_di', $request->status):false,['id'=>'status2','class'=>'filter-phone']) !!}
-                                {!! Form::label('status2', 'học đi') !!}
+                                {!! Form::checkbox('status[]','Studying',$request->has('status')?in_array('Studying', $request->status):false,['id'=>'status2','class'=>'filter-phone']) !!}
+                                {!! Form::label('status2', __('messages.Studying')) !!}
                             </div>
                             <div class="form-group">
-                                {!! Form::checkbox('status[]','thoi_hoc',$request->has('status')?in_array('thoi_hoc', $request->status):false,['id'=>'status3','class'=>'filter-phone']) !!}
-                                {!! Form::label('status3', 'thôi học') !!}
+                                {!! Form::checkbox('status[]','Failed',$request->has('status')?in_array('Failed', $request->status):false,['id'=>'status3','class'=>'filter-phone']) !!}
+                                {!! Form::label('status3', __('messages.Failed')) !!}
                             </div>
                         </div>
                         {!! Form::submit('Filter',['class'=>'btn btn-primary','name'=>'filter']) !!}
@@ -95,7 +95,7 @@
                         @endif
                         @if($request->has('status'))
                             @foreach($request->status as $tag)
-                                <span class="text-primary tag-{{$tag}}"><i class="fas fa-tag"></i> {{$tag}}</span>
+                                <span class="text-primary tag-{{$tag}}"><i class="fas fa-tag"></i> {{__('messages.'.$tag)}}</span>
                             @endforeach
                         @endif
                     </div>
@@ -144,11 +144,11 @@
                                     <td>{{ $student->birthday}}</td>
                                     <td class="text-center">
                                         @if($student->status == 0)
-                                            <span class="text-info">Học đi</span>
+                                            <span class="text-info">{{__('messages.Studying')}}</span>
                                         @elseif($student->status == 1)
-                                            <span class="text-success">Học xong</span>
+                                            <span class="text-success">{{__('messages.Passed')}}</span>
                                         @elseif($student->status == -1)
-                                            <span class="text-secondary">Thôi học</span>
+                                            <span class="text-secondary">{{__('messages.Failed')}}</span>
                                         @endif
                                     </td>
                                     <td class="text-center">

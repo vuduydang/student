@@ -79,13 +79,13 @@ class StudentRepository extends EloquentRepository implements StudentRepositoryI
 
             //filter Status
             if (array_key_exists('status', $value)) {
-                if (in_array('hoc_xong',$value['status'])) {
+                if (in_array('Passed',$value['status'])) {
                     $students->where('status','=','1');
                 }
-                if (in_array('hoc_di',$value['status'])) {
+                if (in_array('Studying',$value['status'])) {
                     $students->where('status','=','0');
                 }
-                if (in_array('thoi_hoc',$value['status'])) {
+                if (in_array('Failed',$value['status'])) {
                     $students->where('status','=','-1');
                 }
             }
@@ -106,8 +106,7 @@ class StudentRepository extends EloquentRepository implements StudentRepositoryI
                 $students->where('avg_score','>=',$min)
                     ->where('avg_score','<=',$max);
             }
-
-
+//        return $students->get();
         return $students->paginate(20);
     }
 

@@ -39,4 +39,7 @@ return [
     'Option' => 'Option',
     'Male' => 'Male',
     'Female' => 'Female',
+    'Passed' => 'Passed',
+    'Studying' => 'Studying',
+    'Failed' => 'Failed',
 ];
