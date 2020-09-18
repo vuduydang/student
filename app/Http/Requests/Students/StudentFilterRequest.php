@@ -24,7 +24,10 @@ class StudentFilterRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'score_min' => 'nullable|numeric|min:0|max:10',
+            'score_max' => 'nullable|numeric|min:0|max:10',
+            'age_min' => 'nullable|numeric|min:0|max:100',
+            'age_max' => 'nullable|numeric|min:0|max:100',
         ];
     }
 }

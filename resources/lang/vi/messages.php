@@ -17,7 +17,7 @@ return [
     'Student' => 'Học sinh',
     'Student-list'=> 'Danh sách học sinh',
     'Student-create'=> 'Thêm học sinh',
-    'Student-detail' => 'Thông tin sinh viên',
+    'Student-detail' => 'Thông tin học sinh',
     //course
     'Course' => 'Ngành học',
     'Course-list' => 'Danh sách ngành học',

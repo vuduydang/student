@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Students\StudentCreateRequest;
+use App\Http\Requests\Students\StudentFilterRequest;
 use App\Http\Requests\Students\StudentUpdateRequest;
 use App\Repositories\Courses\CourseRepository;
 use App\Repositories\Results\ResultRepository;
@@ -32,7 +33,7 @@ class StudentController extends Controller{
     /**
      * Get students
      */
-    public function index(Request $request)
+    public function index(StudentFilterRequest $request)
     {
         $students = $this->studentRepository->filter($request->all());
         return view("students.list", compact('students'), compact('request'));
@@ -55,7 +56,9 @@ class StudentController extends Controller{
     public function store(StudentCreateRequest $request)
     {
         $data = $request->all();
-        $data['avatar'] = $this->studentRepository->uploaderImage('create', $request);
+        if ($request->hasFile('avatar')) {
+            $data['avatar'] = $this->studentRepository->uploaderImage('create', $request);
+        }
         //add user , get id user
         $data['user_id'] = $this->userRepository->insertGetId($data);
         //add student

@@ -24,12 +24,12 @@ class StudentCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'birthday' => 'required|date',
-            'email' => 'required|email|unique:users',
+            'name' => 'required|max:100',
+            'birthday' => 'required|date|before:now',
+            'email' => 'required|email|max:100|unique:users',
             'phone' => 'required|regex:/0([0-9]{9})/|unique:students|max:10',
             'address' => 'required',
-            'avatar' => 'required|mimes:jpeg,png',
+            'avatar' => 'mimes:jpeg,png',
             'password' => 'required'
         ];
     }
@@ -41,19 +41,7 @@ class StudentCreateRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => '* Not define',
-            'birthday.required' => '* Not define',
-            'birthday.date' => '* Incorrect format',
-            'email.required' => '* Not define',
-            'email.email' => '* Incorrect format',
-            'email.unique' => '* Email already exists',
-            'phone.required' => '* Not define',
-            'phone.regex' => '* Incorrect format',
-            'phone.unique' => '* Phone already exists',
-            'address.required' => '* Not Define',
-            'avatar.required' => '* Not define',
             'avatar.mimes' => '* Incorrect format (jpeg, png)',
-            'password.required' => '* Not define'
         ];
     }
 }

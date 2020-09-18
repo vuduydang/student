@@ -44,20 +44,40 @@
                             <h3>{{__('messages.Age')}}</h3>
                             <div class="form-group">
                                 {!! Form::number('age_min',$request->age_min,['class'=>'form-control filter-age','placeholder' => 'min']) !!}
+                                @error('age_min')
+                                <span class="invalid-feedback d-block" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
                             </div>
                             <p> to :</p>
                             <div class="form-group">
                                 {!! Form::number('age_max',$request->age_max,['class'=>'form-control filter-age','placeholder' => 'max']) !!}
+                                @error('age_max')
+                                <span class="invalid-feedback d-block" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
                             </div>
                         </div>
                         <div class="text-secondary p-3">
                             <h3>{{__('messages.Score')}}</h3>
                             <div class="form-group">
                                 {!! Form::number('score_min',$request->score_min,['class'=>'form-control filter-score','placeholder' => 'min']) !!}
+                                @error('score_min')
+                                <span class="invalid-feedback d-block" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
                             </div>
                             <p> to :</p>
                             <div class="form-group">
                                 {!! Form::number('score_max',$request->score_max,['class'=>'form-control filter-score','placeholder' => 'max']) !!}
+                                @error('score_max')
+                                <span class="invalid-feedback d-block" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
                             </div>
                         </div>
                         <div class="text-secondary p-3">
@@ -75,6 +95,8 @@
                                 {!! Form::label('status3', __('messages.Failed')) !!}
                             </div>
                         </div>
+                    </div>
+                    <div class="d-inline ml-4">
                         {!! Form::submit('Filter',['class'=>'btn btn-primary','name'=>'filter']) !!}
                     </div>
                 </div>

@@ -17,7 +17,8 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="inputNam4">Name</label>
-                            <input type="text" name="name" class="form-control" id="inputName4" placeholder="Name">
+                            {{ Form::text('name',null,['class'=>'form-control','placeholder'=>'Name']) }}
+{{--                            <input type="text" name="name" class="form-control" id="inputName4" placeholder="Name">--}}
                             @error('name')
                             <span class="invalid-feedback d-block" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -26,7 +27,8 @@
                         </div>
                         <div class="form-group col-md-4">
                             <label for="inputBirthday4">Birthday</label>
-                            <input class="form-control" name="birthday" type="date" id="example-date-input">
+                            {{ Form::date('birthday',null,['class'=>'form-control','id'=>'example-date-input']) }}
+{{--                            <input class="form-control" name="birthday" type="date" id="example-date-input">--}}
                             @error('birthday')
                             <span class="invalid-feedback d-block" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -35,16 +37,14 @@
                         </div>
                         <div class="form-group col-md-2">
                             <label for="inputBirthday4">Gender</label>
-                            <select name="gender" id="inputState" class="form-control">
-                                <option value="0">Male</option>
-                                <option value="1">Female</option>
-                            </select>
+                            {{ Form::select('gender', ['0' => 'Male','1' => 'Female'],null, ['class' => 'form-control', 'id'=>'inputState']) }}
                         </div>
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="inputemail2">Email</label>
-                            <input type="email" name="email" class="form-control" id="inputEmail2" placeholder="example@gmal.com">
+                            {{ Form::email('email',null,['class'=>'form-control','placeholder'=>'example@gmail.com']) }}
+{{--                            <input type="email" name="email" class="form-control" id="inputEmail2" placeholder="example@gmal.com">--}}
                             @error('email')
                             <span class="invalid-feedback d-block" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -53,7 +53,8 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label for="inputPhone2">Phone Number</label>
-                            <input type="number" name="phone" class="form-control" id="inputPhone2" placeholder="0123456789">
+                            {{ Form::text('phone',null,['class'=>'form-control','placeholder'=>'0123456789']) }}
+{{--                            <input type="number" name="phone" class="form-control" id="inputPhone2" placeholder="0123456789">--}}
                             @error('phone')
                             <span class="invalid-feedback d-block" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -64,7 +65,8 @@
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="inputAddress">Addess</label>
-                            <input type="text" name="address" class="form-control" id="inputAddress">
+                            {{ Form::text('address',null,['class'=>'form-control','placeholder'=>'Address']) }}
+{{--                            <input type="text" name="address" class="form-control" id="inputAddress">--}}
                             @error('address')
                                 <span class="invalid-feedback d-block" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -72,8 +74,9 @@
                             @enderror
                         </div>
                         <div class="form-group col-md-4">
-                            <label for="exampleInputFile">Avatar</label>
-                            <input type="file" name="avatar" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">
+                            <label for="exampleInputFile">Avatar</label> </br>
+                            {{ Form::file('avatar',null,['class'=>'form-control-file','id'=>'exampleInputFile','aria-describedby'=>'fileHelp']) }}
+{{--                            <input type="file" name="avatar" class="form-control-file" id="exampleInputFile" aria-describedby="fileHelp">--}}
                             <small id="fileHelp" class="form-text text-muted">File phải có định dạng png hoặc jpg.</small>
                             @error('avatar')
                             <span class="invalid-feedback d-block" role="alert">
@@ -93,7 +96,7 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label for="inputPassword4">Password (Default)</label>
-                            <input type="text" name="password" value="Nw1234a@" class="form-control" id="inputPassword">
+                            <input type="password" name="password" readonly value="123456" class="form-control" id="inputPassword">
                             @error('password')
                             <span class="invalid-feedback d-block" role="alert">
                                     <strong>{{ $message }}</strong>
