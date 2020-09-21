@@ -107,7 +107,7 @@ class StudentRepository extends EloquentRepository implements StudentRepositoryI
                     ->where('avg_score','<=',$max);
             }
 //        return $students->get();
-        return $students->paginate(20);
+        return $students->with('course')->paginate(20);
     }
 
     public function sendMail($request)
