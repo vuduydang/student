@@ -17,7 +17,7 @@ class CreateResultsTable extends Migration
             $table->id();
             $table->integer('student_id');
             $table->integer('subject_id');
-            $table->double('score');
+            $table->double('score')->default(0);
             $table->timestamps();
         });
     }

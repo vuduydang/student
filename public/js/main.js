@@ -101,8 +101,25 @@ function modalUpdate() {
         $("#update").attr('onclick', 'update(' + id + ')');
     });
 }
-
 modalUpdate();
+
+// get subject for cource
+function getSubject(cource) {
+    let result = [];
+    $.ajax({
+        type: "GET",
+        url: api + "/subjects/" + cource,
+        success: function (res) {
+            Object.values(res.data).forEach(value => {
+                result.push(value);
+            })
+        },
+        error: function (err) {
+            console.log(err);
+        }
+    });
+    return result;
+}
 
 //update data element
 function update(id) {
@@ -198,24 +215,11 @@ function confirmPassword() {
 
 //action update and create results subject in student
     let stt = $(".results").children().length;
-    let sourse = $("#student").data('course');
+    let course = $("#student").data('course');
     let data = [];
-    let result = [];
-
     // lấy danh sách tất cả môn học
-    $.ajax({
-        type: "GET",
-        url: api + "/subjects/" + sourse,
-        success: function (res) {
-            Object.values(res.data).forEach(value => {
-                result.push(value);
-            })
-            $("#create-column").removeAttr('class');
-        },
-        error: function (err) {
-            console.log(err);
-        }
-    });
+    let result = getSubject(course);
+    $("#create-column").removeAttr('class');
 
     // Thêm column môn học
     $(".create-column").click(function () {
@@ -253,15 +257,15 @@ function confirmPassword() {
         });
         return data;
     }
-function changeSubject() {
-    $("select[name='subject[]']").each(function (index, value) {
-            let val = $(this).val();
-            let name = $(this).children(`[value='${val}']`).text();
-            let option = filterData().map(subject =>
-                (`<option value="${subject.id}" >${subject.name}</option>`));
-            $(this).html(`<option value="${val}" selected >${name}</option>` + option);
-    });
-}
+    function changeSubject() {
+        $("select[name='subject[]']").each(function (index, value) {
+                let val = $(this).val();
+                let name = $(this).children(`[value='${val}']`).text();
+                let option = filterData().map(subject =>
+                    (`<option value="${subject.id}" >${subject.name}</option>`));
+                $(this).html(`<option value="${val}" selected >${name}</option>` + option);
+        });
+    }
 
 function removeColumn(id) {
     let column = $('#row-0' + id);
@@ -398,4 +402,14 @@ function changePassword() {
             })
         })
 }
+
+//update subjects for student
+$('tr.create-subject').on('click',function () {
+    let parent = $(this).parent().attr('class');
+    if (parent === "table-subjects") {
+        jQuery(this).detach().appendTo('.table-subject-student')
+    } else  if (parent === "table-subject-student") {
+        jQuery(this).detach().appendTo('.table-subjects')
+    }
+})
 

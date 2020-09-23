@@ -80,7 +80,7 @@
                                         <a class="nav-link" href="{{ route('students.index') }}">{{__('messages.Student-list')}}</a>
                                         <a class="nav-link" href="{{ route('students.create') }}">{{__('messages.Student-create')}}</a>
                                     @else
-                                        <a class="nav-link" href="#">{{__('messages.Result')}}</a>
+                                        <a class="nav-link" href="{{ route('results.index') }}">{{__('messages.Subject')}}</a>
                                     @endrole
                                 </nav>
                             </div>

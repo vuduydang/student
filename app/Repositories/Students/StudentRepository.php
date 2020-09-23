@@ -26,7 +26,7 @@ class StudentRepository extends EloquentRepository implements StudentRepositoryI
      * @param int $userId
      * @return Builder|\Illuminate\Database\Eloquent\Model|object|null
      */
-    public function getProfile($user)
+    public function getProfile(object $user)
     {
         $student = $this->_model->query()->where('user_id',$user->id)->first();
         if (!$student) {

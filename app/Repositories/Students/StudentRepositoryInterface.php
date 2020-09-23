@@ -6,7 +6,7 @@ use App\Repositories\RepositoryInterface;
 
 interface StudentRepositoryInterface extends RepositoryInterface
 {
-    public function getProfile($user);
+    public function getProfile(object $user);
 
     public function uploaderImage($action , object $request);
 

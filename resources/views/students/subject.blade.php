@@ -25,7 +25,6 @@
                     {{Form::open(array('url'=>route('results.update',$student)))}}
                         {{ Form::hidden('course', $student->course->id) }}
                     <button name="_method" value="PUT" class="btn btn-info">Update</button>
-{{--                    <button name="_method" value="DELETE" class="btn btn-danger">Del</button>--}}
                     <table class="table table-bordered">
                         <thead id="table" data-url="/results">
                         <tr>
@@ -43,11 +42,10 @@
                         </tfoot>
                         <tbody class="results">
                         @if(!old())
-                            @foreach($student->subjectResults as $index => $subjectResults)
+                            @foreach($student->results as $index => $subjectResults)
                                 <tr id="row-{{ $subjectResults->pivot->id }}" data-id="{{$subjectResults->pivot->id}}" class="result-update row-input" >
                                     <td name="stt">
                                         {{ $index+1 }}
-{{--                                         <input type="hidden" name="del[]" value="{{$subject->pivot->id}}" class="form-check d-inline"/>--}}
                                     </td>
                                     <td>
                                         <label>{{ $subjectResults->name }}</label>

@@ -7,6 +7,7 @@ use App\Repositories\Results\ResultRepository;
 use App\Repositories\Students\StudentRepository;
 use App\Repositories\Subjects\SubjectRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ResultController extends Controller
 {
@@ -20,17 +21,27 @@ class ResultController extends Controller
         $this->subjectRepository = $subject;
     }
 
+    public function index()
+    {
+        $student = $this->studentRepository->getProfile(Auth::user());
+        if (!$student->course) {
+            return redirect()->route('students.edit',$student)->with('error', 'Ngành học của sinh viên không tồn tại.');
+        }
+        $results = $student->results;
+        $subjects =  $student->subjects->diff($results);
+        return view('results.index', compact('student','subjects','results'));
+    }
+
     public function update($student ,ResultCreateRequest $request)
     {
         $subject = $request->get('subject') ?? [];
-        $score   = $request->get('score');
+        $score   = $request->get('score')?? [];
         $course  = $request->get('course');
-//        $this->resultRepository->deleteOnStudent($student);
         for ($i=0; $i<count($subject); $i++)
         {
             $where['student_id'] = $student;
             $where['subject_id'] = $subject[$i];
-            $value['score'] = $score[$i];
+            $value['score'] = $score[$i] ?? 0;
             $this->resultRepository->updateOrCreate($where, $value);
         }
         //Cập nhật điểm trung bình cho sinh viên
@@ -46,6 +57,24 @@ class ResultController extends Controller
         }
 
         return redirect()->route('students.subject',['id'=>$student])->with('success','Cập nhật điểm thành công');
+    }
+
+    public function updateForStudent(ResultCreateRequest $request)
+    {
+        $student = $this->studentRepository->getProfile(Auth::user());
+        $subject = $request->get('subject') ?? [];
+        $course  = $request->get('course');
+        for ($i=0; $i<count($subject); $i++)
+        {
+            $where['student_id'] = $student->id;
+            $where['subject_id'] = $subject[$i];
+            $value['score'] = 0;
+            $this->resultRepository->updateOrCreate($where, $value);
+        }
+        //Cập nhật điểm trung bình cho sinh viên
+        $avgScore = $this->resultRepository->avgScore($student->id);
+        $this->studentRepository->update($student->id, ['avg_score'=>$avgScore]);
+        return redirect()->route('results.index')->with('success','Cập nhật điểm thành công');
     }
 
 }

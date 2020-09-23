@@ -63,6 +63,9 @@ Route::middleware('auth')->group(function(){
 
 
         Route::get('/students/{student}','StudentController@show')->name('students.show');
+        Route::get('/subjects-result','ResultController@index')->name('results.index');
+        Route::put('/subjects-update','ResultController@updateForStudent')
+            ->name('results.updateForStudent');
 
 
 });

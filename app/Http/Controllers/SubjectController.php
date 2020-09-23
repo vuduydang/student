@@ -6,14 +6,16 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Subjects\SubjectCreateRequest;
 use App\Http\Requests\Subjects\SubjectUpdateRequest;
 use App\Repositories\Courses\CourseRepository;
+use App\Repositories\Students\StudentRepository;
 use App\Repositories\Subjects\SubjectRepository;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SubjectController extends Controller
 {
     protected $subjectRepository;
     protected $courseRepository;
-    public function __construct(SubjectRepository $subject, CourseRepository $course)
+    public function __construct(SubjectRepository $subject, CourseRepository $course, StudentRepository $student)
     {
         $this->subjectRepository = $subject;
         $this->courseRepository = $course;

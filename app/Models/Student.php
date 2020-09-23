@@ -21,7 +21,6 @@ class Student extends Model
 
     public function subjects()
     {
-//        return $this->belongsTo(Subject::class,'course_id','course_id');
         $result = $this->hasMany(Subject::class,'course_id','course_id');
         if ($result) {
             return $result;
@@ -29,7 +28,7 @@ class Student extends Model
         return false;
     }
 
-    public function subjectResults()
+    public function results()
     {
         $result = $this->belongsToMany(Subject::class, 'results')
             ->withPivot('id','score')
