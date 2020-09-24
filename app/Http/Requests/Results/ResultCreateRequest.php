@@ -31,7 +31,7 @@ class ResultCreateRequest extends FormRequest
     function messages()
     {
         return [
-          "score.*.required" =>"Không đc để trống"
+          //
         ];
     }
 }

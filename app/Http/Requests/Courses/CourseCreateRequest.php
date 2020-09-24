@@ -24,14 +24,13 @@ class CourseCreateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=>'required|unique:courses',
+            'name'=>'required|max:20|unique:courses',
         ];
     }
 
     public function messages()
     {
         return [
-            'name.required' => 'Bạn chưa nhập tên khóa học',
             'name.unique' => 'Tên đã tồn tại'
         ];
     }

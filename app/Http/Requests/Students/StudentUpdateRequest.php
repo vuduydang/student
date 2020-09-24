@@ -25,8 +25,8 @@ class StudentUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required',
-            'birthday' => 'required|date',
+            'name' => 'required|max:100',
+            'birthday' => 'required|date|before:now',
             'email' => 'required|email|unique:users,email,'. $this->get('user_id'),
             'phone' => 'required|regex:/0([0-9]{9})/|max:10|unique:students,phone,'. $this->get('id'),
             'address' => 'required',
@@ -36,16 +36,6 @@ class StudentUpdateRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'Name not define',
-            'birthday.required' => 'Birthday not define',
-            'birthday.date' => '* Incorrect format',
-            'email.required' => 'Email not define',
-            'email.email' => '* Incorrect format',
-            'email.unique' => '* Email already exists',
-            'phone.required' => 'Phone not define',
-            'phone.regex' => '* Incorrect format',
-            'phone.unique' => '* Phone already exists',
-            'address.required' => 'Address not Define',
             'avatar.image' => '* Incorrect format (jpeg, png, jpg)'
         ];
     }

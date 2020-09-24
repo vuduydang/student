@@ -103,23 +103,6 @@ function modalUpdate() {
 }
 modalUpdate();
 
-// get subject for cource
-function getSubject(cource) {
-    let result = [];
-    $.ajax({
-        type: "GET",
-        url: api + "/subjects/" + cource,
-        success: function (res) {
-            Object.values(res.data).forEach(value => {
-                result.push(value);
-            })
-        },
-        error: function (err) {
-            console.log(err);
-        }
-    });
-    return result;
-}
 
 //update data element
 function update(id) {
@@ -218,8 +201,20 @@ function confirmPassword() {
     let course = $("#student").data('course');
     let data = [];
     // lấy danh sách tất cả môn học
-    let result = getSubject(course);
-    $("#create-column").removeAttr('class');
+    let result = [];
+    $.ajax({
+        type: "GET",
+        url: api + "/subjects/" + course,
+        success: function (res) {
+            Object.values(res.data).forEach(value => {
+                result.push(value);
+            })
+            $("#create-column").removeAttr('class');
+        },
+        error: function (err) {
+            console.log(err);
+        }
+    });
 
     // Thêm column môn học
     $(".create-column").click(function () {

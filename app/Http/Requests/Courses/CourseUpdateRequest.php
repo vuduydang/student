@@ -24,7 +24,7 @@ class CourseUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=>'unique:courses,name,'.$this->get('id'),
+            'name'=>'required|max:100|unique:courses,name,'.$this->get('id'),
         ];
     }
 

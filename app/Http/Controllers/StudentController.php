@@ -109,8 +109,9 @@ class StudentController extends Controller{
         if (!$student->course) {
             return redirect()->route('students.edit',$student)->with('error', 'Ngành học của sinh viên không tồn tại.');
         }
-        $subjects =  $student->subjects;
-        return view('students.subject', compact('student','subjects'));
+        $results = $student->results;
+        $subjects =  $student->subjects->diff($results);
+        return view('students.subject', compact('student','subjects','results'));
     }
 
     public function dataFaker(Faker $faker)

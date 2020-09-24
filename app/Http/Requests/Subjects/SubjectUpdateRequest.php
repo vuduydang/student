@@ -24,7 +24,7 @@ class SubjectUpdateRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:subjects,name,' . $this->get('id')
+            'name' => 'required|max:255|unique:subjects,name,' . $this->get('id')
         ];
     }
 }

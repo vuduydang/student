@@ -1,5 +1,6 @@
 @extends('layouts/index')
 @section('content')
+{{--    {{dd(old())}}--}}
     <div class="container-fluid">
         @if(Session::has('success'))
             <div class="alert alert-success" role="alert">
@@ -63,27 +64,44 @@
                                 </tr>
                             @endforeach
                         @else
-                            @foreach(old('subject') as $key => $value)
-                                <tr id="row-0{{$key}}" class="result-update row-input">
-                                    <td name="stt">{{$key}}</td>
+                            @foreach($student->results as $index => $subjectResults)
+                                <tr id="row-{{ $subjectResults->pivot->id }}" data-id="{{$subjectResults->pivot->id}}" class="result-update row-input" >
+                                    <td name="stt">
+                                        {{ $index+1 }}
+                                    </td>
                                     <td>
-                                        @foreach($subjects as $subject)
-                                            @if($subject->id == $value)
-                                                <label>{{ $subject['name'] }}</label>
-                                            @endif
-                                        @endforeach
-                                        <input type="hidden" name="subject[]" value="{{ $value }}">
+                                        <label>{{ $subjectResults->name }}</label>
+                                        <input type="hidden" name="subject[]" class="subjects-{{$index}}" value="{{ $subjectResults->id }}">
                                     </td>
                                     <td name="result">
-                                        <input type="text" name="score[]" value="{{ old('score')[$key] }}" class="form-control d-inline-block col-md-8"/>
-                                        <span class="btn text-danger" onclick="removeColumn({{$key}})" ><i class="fas fa-trash-alt"></i></span>
-                                        @error('score.'.$key)
+                                        <input type="text" name="score[]" value="{{$subjectResults->pivot->score}}" class="form-control d-inline-block col-md-8"/>
+                                        <span class="btn text-danger" onclick="remove({{$subjectResults->pivot->id}})" ><i class="fas fa-trash-alt"></i></span>
+                                        @error('score.'.$index)
+                                        <span class="invalid-feedback d-block" role="alert">
+                                            <small>{{ $message }}</small>
+                                        </span>
+                                        @enderror
+                                    </td>
+                            @endforeach
+                            @foreach($subjects as $subject)
+                                @if(in_array($subject->id,old('subject')))
+                                <tr id="row-0{{array_search($subject->id, old('subject'))}}" class="result-update row-input">
+                                    <td name="stt">{{array_search($subject->id, old('subject'))+1}}</td>
+                                    <td>
+                                                <label>{{ $subject['name'] }}</label>
+                                        <input type="hidden" name="subject[]" value="{{ $subject->id }}">
+                                    </td>
+                                    <td name="result">
+                                        <input type="text" name="score[]" value="{{ old('score')[array_search($subject->id, old('subject'))] }}" class="form-control d-inline-block col-md-8"/>
+                                        <span class="btn text-danger" onclick="removeColumn({{array_search($subject->id, old('subject'))}})" ><i class="fas fa-trash-alt"></i></span>
+                                        @error('score.'.array_search($subject->id, old('subject')))
                                         <span class="invalid-feedback d-block" role="alert">
                                             <small>{{ $message }}</small>
                                         </span>
                                         @enderror
                                     </td>
                                 </tr>
+                                @endif
                             @endforeach
                         @endif
                         </tbody>
