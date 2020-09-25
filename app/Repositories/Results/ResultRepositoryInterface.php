@@ -15,6 +15,7 @@ interface ResultRepositoryInterface extends RepositoryInterface
     //Tính điểm trung bình cho sinh viên
     public function avgScore(int $student);
 
-    //Xóa nhiều điểm của sinh viên
     public function deleteOnStudent(int $student);
+
+    public function deleteOnSubject(int $subject);
 }

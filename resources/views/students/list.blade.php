@@ -83,15 +83,15 @@
                         <div class="text-secondary p-3">
                             <h3>{{__('messages.Status')}}</h3>
                             <div class="form-group">
-                                {!! Form::checkbox('status[]','Passed',$request->has('status')?in_array('Passed', $request->status):false,['id'=>'status1','class'=>'filter-phone']) !!}
+                                {!! Form::radio('status','Passed',$request->status == 'Passed',['id'=>'status1','class'=>'filter-status']) !!}
                                 {!! Form::label('status1', __('messages.Passed')) !!}
                             </div>
                             <div class="form-group">
-                                {!! Form::checkbox('status[]','Studying',$request->has('status')?in_array('Studying', $request->status):false,['id'=>'status2','class'=>'filter-phone']) !!}
+                                {!! Form::radio('status','Studying',$request->status == 'Studying',['id'=>'status2','class'=>'filter-status']) !!}
                                 {!! Form::label('status2', __('messages.Studying')) !!}
                             </div>
                             <div class="form-group">
-                                {!! Form::checkbox('status[]','Failed',$request->has('status')?in_array('Failed', $request->status):false,['id'=>'status3','class'=>'filter-phone']) !!}
+                                {!! Form::radio('status','Failed',$request->status == 'Failed',['id'=>'status3','class'=>'filter-status']) !!}
                                 {!! Form::label('status3', __('messages.Failed')) !!}
                             </div>
                         </div>
@@ -116,9 +116,7 @@
                             <span class="text-primary tag-age"><i class="fas fa-tag"></i> age</span>
                         @endif
                         @if($request->has('status'))
-                            @foreach($request->status as $tag)
-                                <span class="text-primary tag-{{$tag}}"><i class="fas fa-tag"></i> {{__('messages.'.$tag)}}</span>
-                            @endforeach
+                                <span class="text-primary tag-{{$request->status}}"><i class="fas fa-tag"></i> {{__('messages.'.$request->status)}}</span>
                         @endif
                     </div>
                     <div class="clear-filter d-inline-block p-2">

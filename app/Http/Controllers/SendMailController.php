@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Mails\MailCreateRequest;
 use App\Jobs\SendMail;
 use App\Mail\Mailler;
 use App\Repositories\Results\ResultRepository;
@@ -23,7 +24,7 @@ class SendMailController extends Controller
         return view('sendMail.index');
     }
 
-    public function store(Request $request)
+    public function store(MailCreateRequest $request)
     {
         $this->studentRepository->sendMail($request);
 //        //nội dung mail

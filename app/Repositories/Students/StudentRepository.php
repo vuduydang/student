@@ -79,14 +79,14 @@ class StudentRepository extends EloquentRepository implements StudentRepositoryI
 
             //filter Status
             if (array_key_exists('status', $value)) {
-                if (in_array('Passed',$value['status'])) {
-                    $students->where('status','=','1');
+                if ($value['status'] == 'Passed') {
+                    $students->where('status','1');
                 }
-                if (in_array('Studying',$value['status'])) {
-                    $students->where('status','=','0');
+                if ($value['status'] == 'Studying') {
+                    $students->where('status','0');
                 }
-                if (in_array('Failed',$value['status'])) {
-                    $students->where('status','=','-1');
+                if ($value['status'] == 'Failed') {
+                    $students->where('status','-1');
                 }
             }
 

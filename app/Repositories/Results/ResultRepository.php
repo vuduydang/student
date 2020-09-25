@@ -32,12 +32,16 @@ class ResultRepository extends EloquentRepository implements ResultRepositoryInt
 
     public function deleteOnStudent(int $student)
     {
-        return $this->_model->query()->where('student_id','=',$student)->delete();
+        return $this->_model->query()->where('student_id',$student)->delete();
+    }
+    public function deleteOnSubject(int $subject)
+    {
+        return $this->_model->query()->where('subject_id',$subject)->delete();
     }
 
     public function avgScore(int $student)
     {
-        $result = $this->getAll()->where('student_id','=',$student)->avg('score');
+        $result = $this->_model->query()->where('student_id','=',$student)->avg('score');
         if ($result) {
             return $result;
         }

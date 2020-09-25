@@ -54,6 +54,7 @@ class StudentController extends Controller{
         $student = $this->studentRepository->find($id);
         $this->studentRepository->delete($id);
         $this->userRepository->delete($student->user_id);
+        $this->resultRepository->deleteOnStudent($id);
         if ($student['avatar'] != 'null.png') {
             File::delete('./images/avatars/'.$student->avatar);
         }

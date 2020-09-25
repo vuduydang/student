@@ -287,6 +287,23 @@ $(document).ready(function () {
             removeAction(`.tag-${tag}`);
         }
     })
+    //filter-status
+    $(".filter-status").on('click', function () {
+        $(".filter-status").each(function () {
+            let tag = $(this).val();
+            var checked = $(this).is(':checked');
+            if (checked)
+            {
+                removeAction(`.tag-${tag}`);
+                $(".tags").append(`
+                <span class="text-primary tag-${tag}"><i class="fas fa-tag"></i> ${tag}</span>
+            `);
+            }else
+            {
+                removeAction(`.tag-${tag}`);
+            }
+        })
+    })
     //filter score
     $(".filter-score").on('blur', function () {
         let min = $("[name='score_min']").val();

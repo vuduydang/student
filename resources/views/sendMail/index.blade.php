@@ -24,16 +24,36 @@
                     <div class="col">
                         <div class="form-group">
                             {{Form::text('email',null,['placeholder'=>'Email' , 'class'=>'form-control'])}}
+                            @error('email')
+                            <span class="invalid-feedback d-block" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                         <div class="form-group">
                             {{Form::text('name',null,['placeholder'=>'Name' , 'class'=>'form-control'])}}
+                            @error('name')
+                            <span class="invalid-feedback d-block" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                         <div class="form-group">
                             {{Form::text('title',null,['placeholder'=>'Title' , 'class'=>'form-control'])}}
+                            @error('title')
+                            <span class="invalid-feedback d-block" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                     </div>
                     <div class="col">
                         {{Form::textarea('content',null,['placeholder'=>'Content' , 'class'=>'form-control'])}}
+                        @error('content')
+                        <span class="invalid-feedback d-block" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                        @enderror
                     </div>
                 </div>
                 <div></div>
