@@ -16,33 +16,29 @@
             <nav class="navbar navbar-expand-lg navbar-light bg-white">
                 {!! Form::open(['method'=>'GET']) !!}
                 <div class="navbar-collapse">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link p-3 border text-info d-inline" href="{{ route('students.create') }}">
-                                <i class="fas fa-plus"></i>
-                            </a>
-                        </li>
-                        <li class="nav-item border-right ml-2"></li>
-                    </ul>
-                    <div class="row">
-                        <div class="text-secondary p-3">
-                            <h3>{{__('messages.Phone')}}</h3>
-                            <div class="form-group">
-                                {!! Form::checkbox('phone[]','viettel',$request->has('phone')?in_array('viettel', $request->phone):false,['id'=>'phone1','class'=>'filter-phone']) !!}
+                    <a class="nav-link p-3 m-2 border text-info d-inline-block" href="{{ route('students.create') }}">
+{{--                                <i class="fas fa-plus"></i>--}}
+                        {!! __('messages.Student-create') !!}
+                    </a>
+                    <div class="list-group">
+                        <div class="form-row text-secondary">
+                            <b class="col-md-3">{{__('messages.Phone')}}:</b>
+                            <div class="form-check ml-3 form-check-inline">
+                                {!! Form::checkbox('phone[]','viettel',$request->has('phone')?in_array('viettel', $request->phone):false,['id'=>'phone1','class'=>'filter-phone form-check-input']) !!}
                                 {!! Form::label('phone1', 'Viettel') !!}
                             </div>
-                            <div class="form-group">
-                                {!! Form::checkbox('phone[]','vinaphone',$request->has('phone')?in_array('vinaphone', $request->phone):false,['id'=>'phone2','class'=>'filter-phone']) !!}
+                            <div class="form-check ml-3 form-check-inline">
+                                {!! Form::checkbox('phone[]','vinaphone',$request->has('phone')?in_array('vinaphone', $request->phone):false,['id'=>'phone2','class'=>'filter-phone form-check-input']) !!}
                                 {!! Form::label('phone2', 'Vinaphone') !!}
                             </div>
-                            <div class="form-group">
-                                {!! Form::checkbox('phone[]','mobifone',$request->has('phone')?in_array('mobifone', $request->phone):false,['id'=>'phone3','class'=>'filter-phone']) !!}
+                            <div class="form-check ml-3 form-check-inline">
+                                {!! Form::checkbox('phone[]','mobifone',$request->has('phone')?in_array('mobifone', $request->phone):false,['id'=>'phone3','class'=>'filter-phone form-check-input']) !!}
                                 {!! Form::label('phone3', 'Mobifone') !!}
                             </div>
                         </div>
-                        <div class="text-secondary p-3">
-                            <h3>{{__('messages.Age')}}</h3>
-                            <div class="form-group">
+                        <div class="form-row text-secondary">
+                            <b class="col-md-3">{{__('messages.Age')}}:</b>
+                            <div class="form-group col-md-3">
                                 {!! Form::number('age_min',$request->age_min,['class'=>'form-control filter-age','placeholder' => 'min']) !!}
                                 @error('age_min')
                                 <span class="invalid-feedback d-block" role="alert">
@@ -51,7 +47,7 @@
                                 @enderror
                             </div>
                             <p> to :</p>
-                            <div class="form-group">
+                            <div class="form-group col-md-3">
                                 {!! Form::number('age_max',$request->age_max,['class'=>'form-control filter-age','placeholder' => 'max']) !!}
                                 @error('age_max')
                                 <span class="invalid-feedback d-block" role="alert">
@@ -60,9 +56,9 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="text-secondary p-3">
-                            <h3>{{__('messages.Score')}}</h3>
-                            <div class="form-group">
+                        <div class="form-row text-secondary">
+                            <b class="col-md-3">{{__('messages.Score')}}:</b>
+                            <div class="form-group col-md-3">
                                 {!! Form::number('score_min',$request->score_min,['class'=>'form-control filter-score','placeholder' => 'min']) !!}
                                 @error('score_min')
                                 <span class="invalid-feedback d-block" role="alert">
@@ -71,7 +67,7 @@
                                 @enderror
                             </div>
                             <p> to :</p>
-                            <div class="form-group">
+                            <div class="form-group col-md-3">
                                 {!! Form::number('score_max',$request->score_max,['class'=>'form-control filter-score','placeholder' => 'max']) !!}
                                 @error('score_max')
                                 <span class="invalid-feedback d-block" role="alert">
@@ -80,18 +76,18 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="text-secondary p-3">
-                            <h3>{{__('messages.Status')}}</h3>
-                            <div class="form-group">
-                                {!! Form::radio('status','Passed',$request->status == 'Passed',['id'=>'status1','class'=>'filter-status']) !!}
+                        <div class="form-row text-secondary">
+                            <b class="col-md-3">{{__('messages.Status')}}:</b>
+                            <div class="form-check ml-3 form-check-inline">
+                                {!! Form::radio('status','Passed',$request->status == 'Passed',['id'=>'status1','class'=>'filter-status form-check-input']) !!}
                                 {!! Form::label('status1', __('messages.Passed')) !!}
                             </div>
-                            <div class="form-group">
-                                {!! Form::radio('status','Studying',$request->status == 'Studying',['id'=>'status2','class'=>'filter-status']) !!}
+                            <div class="form-check ml-3 form-check-inline">
+                                {!! Form::radio('status','Studying',$request->status == 'Studying',['id'=>'status2','class'=>'filter-status form-check-input']) !!}
                                 {!! Form::label('status2', __('messages.Studying')) !!}
                             </div>
-                            <div class="form-group">
-                                {!! Form::radio('status','Failed',$request->status == 'Failed',['id'=>'status3','class'=>'filter-status']) !!}
+                            <div class="form-check ml-3 form-check-inline">
+                                {!! Form::radio('status','Failed',$request->status == 'Failed',['id'=>'status3','class'=>'filter-status form-check-input']) !!}
                                 {!! Form::label('status3', __('messages.Failed')) !!}
                             </div>
                         </div>

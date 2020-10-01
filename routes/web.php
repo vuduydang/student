@@ -58,9 +58,16 @@ Route::middleware('auth')->group(function(){
         Route::put( '/students', 'StudentController@index')
             ->name('students.filter');
         Route::get( '/account/faker', 'StudentController@dataFaker');
+
+        Route::group(['prefix' => 'chat'],function () {
+            Route::get('/admin','ChatController@admin')->name('chat.admin');
+        });
+
     });
 
 
+        Route::post('/chat/pusher','ChatController@pusher')->name('chat.pusher');
+        Route::get('/chat','ChatController@index')->name('chat.index');
 
         Route::get('/students/{student}','StudentController@show')->name('students.show');
         Route::get('/subjects-result','ResultController@index')->name('results.index');
