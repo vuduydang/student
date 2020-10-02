@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Events\PusherEvent;
+use App\Repositories\Messages\MessageRepository;
 use App\Repositories\Students\StudentRepository;
 use App\Repositories\Users\UserRepository;
 use Illuminate\Http\Request;
@@ -12,9 +13,11 @@ use Pusher\Pusher;
 class ChatController extends Controller
 {
     protected $studentRepository;
-    public function __construct(StudentRepository $student)
+    protected $messageRepository;
+    public function __construct(StudentRepository $student, MessageRepository $message)
     {
         $this->studentRepository = $student;
+        $this->messageRepository = $message;
     }
 
     public function index()
@@ -36,19 +39,27 @@ class ChatController extends Controller
         $data['message'] = $request->get('message');
         $data['timeline'] = date('H:i');
 
-        $options = array(
-            'cluster' => 'ap1',
-            'encrypted' => true
-        );
+        try {
+            $options = array(
+                'cluster' => 'ap1',
+                'encrypted' => true
+            );
 
-        $pusher = new Pusher(
-            env('PUSHER_APP_KEY'),
-            env('PUSHER_APP_SECRET'),
-            env('PUSHER_APP_ID'),
-            $options
-        );
-
-        $pusher->trigger('Chat', 'send-message', $data);
+            $pusher = new Pusher(
+                env('PUSHER_APP_KEY'),
+                env('PUSHER_APP_SECRET'),
+                env('PUSHER_APP_ID'),
+                $options
+            );
+            $pusher->trigger('Chat', 'send-message', $data);
+        } catch (\Exception $e) {
+            return response('False');
+        }
+        $this->messageRepository->create([
+            'student_id' => Auth::id(),
+            'reply_for' => $request->student,
+            'message' => $request->message,
+        ]);
         return response($this->studentRepository->getProfile(Auth::user()));
     }
 
