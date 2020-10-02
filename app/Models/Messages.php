@@ -9,6 +9,11 @@ class Messages extends Model
     protected $table = "messages";
 
     protected $fillable = [
-        'id', 'student_id','reply_for'
+        'id', 'sender','receiver','message'
     ];
+
+    public function student()
+    {
+        return $this->belongsTo(Student::class,'sender');
+    }
 }

@@ -14,4 +14,12 @@ class MessageRepository extends EloquentRepository implements MessageRepositoryI
     {
         return Messages::class;
     }
+
+    public function messages(int $student)
+    {
+        return $this->_model->query()
+            ->where('receiver',$student)
+            ->get()
+            ->groupBy('sender');
+    }
 }

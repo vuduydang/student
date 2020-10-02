@@ -27,6 +27,9 @@ class ChatController extends Controller
 
     public function admin ()
     {
+//        $student = $this->studentRepository->getProfile(Auth::user());
+//        $messages = $this->messageRepository->messages($student->id);
+//        dd($messages);
         return view('chat.admin');
     }
 
@@ -38,7 +41,7 @@ class ChatController extends Controller
         $data['token'] = $request->get('_token');
         $data['message'] = $request->get('message');
         $data['timeline'] = date('H:i');
-
+        $sender = $this->studentRepository->getProfile(Auth::user());
         try {
             $options = array(
                 'cluster' => 'ap1',
@@ -52,15 +55,15 @@ class ChatController extends Controller
                 $options
             );
             $pusher->trigger('Chat', 'send-message', $data);
+            $this->messageRepository->create([
+                'sender' => $sender->id,
+                'receiver' => $request->get('student'),
+                'message' => $request->get('message'),
+            ]);
         } catch (\Exception $e) {
             return response('False');
         }
-        $this->messageRepository->create([
-            'student_id' => Auth::id(),
-            'reply_for' => $request->student,
-            'message' => $request->message,
-        ]);
-        return response($this->studentRepository->getProfile(Auth::user()));
+        return response($sender);
     }
 
 }

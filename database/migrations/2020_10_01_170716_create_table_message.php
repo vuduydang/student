@@ -15,13 +15,12 @@ class CreateTableMessage extends Migration
     {
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('chatroom_id');
             $table->integer('student_id');
-            $table->integer('reply_for');
             $table->text('message');
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      *

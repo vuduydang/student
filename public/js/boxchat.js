@@ -29,9 +29,7 @@ $(document).ready(function(){
                     </div>
                 `);
                 message.val('');
-                $('.detail-message').animate({
-                    scrollTop: $(this).get(0).scrollHeight
-                }, 1000);
+                $('.detail-message').scrollTop($('.detail-message').height());
             },
             error: function (errors) {
                 console.log(errors)
@@ -72,9 +70,6 @@ $(document).ready(function () {
             `;
         if(student == data.id) {
             message.html(existingMessage + newMessageHtml);
-            $('.detail-message').animate({
-                scrollTop: $(this).get(0).scrollHeight
-            }, 1000);
         }
     });
 });

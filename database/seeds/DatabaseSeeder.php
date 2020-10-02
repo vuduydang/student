@@ -13,7 +13,11 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         Model::unguard();
-        $this->call(StudentTableSeeder::class);
+        $this->call([
+            RoleSeeder::class,
+            UserSeeder::class,
+            StudentTableSeeder::class,
+        ]);
         Model::reguard();
     }
 }

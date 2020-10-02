@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAttrTableUser extends Migration
+class CreateTableChatrooms extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class CreateAttrTableUser extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->string('provider')->nullable()->after('remember_token');
-            $table->string('provider_id')->nullable()->after('provider');
+        Schema::create('chatrooms', function (Blueprint $table) {
+            $table->id();
+            $table->string('name')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -26,8 +27,6 @@ class CreateAttrTableUser extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('chatrooms');
     }
 }
