@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Messages;
 
-use App\Models\Messages;
+use App\Models\Message;
 use App\Repositories\EloquentRepository;
 
 class MessageRepository extends EloquentRepository implements MessageRepositoryInterface
@@ -12,7 +12,7 @@ class MessageRepository extends EloquentRepository implements MessageRepositoryI
      */
     public function getModel()
     {
-        return Messages::class;
+        return Message::class;
     }
 
     public function messages(int $student)

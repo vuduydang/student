@@ -1,7 +1,7 @@
 var origin   = window.location.origin;
 var student = document.currentScript.getAttribute('student');
 $(document).ready(function(){
-    console.log(origin)
+    $('.detail-message').scrollTop($('.detail-message').height());
     $('#action_menu_btn').click(function(){
         $('.action_menu').toggle();
     });
@@ -58,17 +58,17 @@ $(document).ready(function () {
     channel.bind('send-message', function(data) {
         let existingMessage = message.html();
         let newMessageHtml = `
-                  <div class="d-flex justify-content-start mb-4">
-                        <div class="img_cont_msg">
-                            <img src="`+origin+'/images/avatars/'+data.avatar+`" class="rounded-circle user_img_msg">
-                        </div>
-                        <div class="msg_cotainer">
-                            `+data.message+`
-                            <span class="msg_time">`+data.timeline+`</span>
-                        </div>
-                  </div>
+              <div class="d-flex justify-content-start mb-4">
+                    <div class="img_cont_msg">
+                        <img src="`+origin+'/images/avatars/'+data.avatar+`" class="rounded-circle user_img_msg">
+                    </div>
+                    <div class="msg_cotainer">
+                        `+data.message+`
+                        <span class="msg_time">`+data.timeline+`</span>
+                    </div>
+              </div>
             `;
-        if(student == data.id) {
+        if(student != data.id) {
             message.html(existingMessage + newMessageHtml);
         }
     });

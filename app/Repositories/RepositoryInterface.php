@@ -39,6 +39,4 @@ interface RepositoryInterface
      */
     public function delete($id);
 
-    // @return id
-    public function insertGetId(array $data);
 }

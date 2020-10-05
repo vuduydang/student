@@ -31,18 +31,19 @@
                 </div>
                 <div class="card-body scrollbar contacts_body">
                     <ul class="contacts messages">
-                        <li class="active">
-                            <div class="d-flex bd-highlight">
-                                <div class="img_cont">
-                                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR-1YtFqTGuv2CN70a4sCnQJG-ZRuBfUE4D0Q&usqp=CAU" class="rounded-circle user_img">
-                                    <span class="online_icon"></span>
+                        @foreach($rooms as $room)
+                            <li class="active">
+                                <div class="d-flex bd-highlight">
+                                    <div class="img_cont">
+                                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcR-1YtFqTGuv2CN70a4sCnQJG-ZRuBfUE4D0Q&usqp=CAU" class="rounded-circle user_img">
+                                        <span class="online_icon"></span>
+                                    </div>
+                                    <div class="user_info">
+                                        <span>{!! $room->name !!}</span>
+                                    </div>
                                 </div>
-                                <div class="user_info">
-                                    <span>Khalid</span>
-                                    <p>Kalid is online</p>
-                                </div>
-                            </div>
-                        </li>
+                            </li>
+                        @endforeach
                     </ul>
                 </div>
                 <div class="card-footer"></div>
@@ -77,10 +78,33 @@
                 </div>
                 <div class="card-body detail-message scrollbar msg_card_body">
                     <!-- message -->
+                    @foreach($messages as $message)
+                        @if($message->user_id == Auth::id())
+                            <div class="d-flex justify-content-end mb-4">
+                                <div class="msg_cotainer_send">
+                                    {!! $message->message !!}
+                                    <span class="msg_time_send">{!! substr($message->created_at,11) !!}</span>
+                                </div>
+                                <div class="img_cont_msg">
+                                    <img src="{!! asset('images/avatars').'/'.$message->student->avatar !!}" class="rounded-circle user_img_msg">
+                                </div>
+                            </div>
+                        @else
+                            <div class="d-flex justify-content-start mb-4">
+                                <div class="img_cont_msg">
+                                    <img src="{!! asset('images/avatars').'/'.$message->student->avatar !!}" class="rounded-circle user_img_msg">
+                                </div>
+                                <div class="msg_cotainer">
+                                    {!! $message->message !!}
+                                    <span class="msg_time">{!! substr($message->created_at,11) !!}</span>
+                                </div>
+                            </div>
+                        @endif
+                    @endforeach
                 </div>
                 <div class="card-footer">
                     {{Form::open(['method'=>'post','id'=>'formChat'])}}
-                        {{Form::hidden('student','1')}}
+                        {{Form::hidden('room_id','1')}}
                         <div class="input-group">
                             <div class="input-group-append">
                                 <span class="input-group-text attach_btn"><i class="fas fa-paperclip"></i></span>

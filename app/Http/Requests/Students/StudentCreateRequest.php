@@ -29,7 +29,7 @@ class StudentCreateRequest extends FormRequest
             'email' => 'required|email|max:100|unique:users',
             'phone' => 'required|regex:/0([0-9]{9})/|unique:students|max:10',
             'address' => 'required',
-            'avatar' => 'mimes:jpeg,png',
+            'avatar' => 'required|mimes:jpeg,png',
             'password' => 'required'
         ];
     }

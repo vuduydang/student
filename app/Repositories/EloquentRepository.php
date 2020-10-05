@@ -64,7 +64,6 @@ abstract class EloquentRepository implements RepositoryInterface
      */
     public function create(array $attributes)
     {
-
         return $this->_model->create($attributes);
     }
 
@@ -102,16 +101,4 @@ abstract class EloquentRepository implements RepositoryInterface
 
         return false;
     }
-
-    /**
-     * @param array $data
-     * @return mixed
-     */
-    public function insertGetId( array $data)
-    {
-        $data['password'] = Hash::make($data['password']);
-        return $this->_model->create($data)->id;
-    }
-
-
 }

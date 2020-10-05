@@ -81,6 +81,7 @@
                 <div class="card-footer">
                     {{Form::open(['method'=>'post','id'=>'formChat'])}}
                         {{Form::hidden('student','2194',['class'=>'student'])}}
+                        {{Form::hidden('room_id','1')}}
                         <div class="input-group">
                             <div class="input-group-append">
                                 <span class="input-group-text attach_btn"><i class="fas fa-paperclip"></i></span>

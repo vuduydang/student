@@ -4,16 +4,16 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Messages extends Model
+class Message extends Model
 {
     protected $table = "messages";
 
     protected $fillable = [
-        'id', 'sender','receiver','message'
+        'id', 'chatroom_id','user_id','message'
     ];
 
     public function student()
     {
-        return $this->belongsTo(Student::class,'sender');
+        return $this->belongsTo(Student::class,'user_id','user_id');
     }
 }

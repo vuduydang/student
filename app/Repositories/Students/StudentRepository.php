@@ -3,7 +3,6 @@
 namespace App\Repositories\Students;
 
 use App\Jobs\SendMail;
-use App\Mail\Mailler;
 use App\Repositories\EloquentRepository;
 use App\Models\Student;
 use Carbon\Carbon;
@@ -149,4 +148,8 @@ class StudentRepository extends EloquentRepository implements StudentRepositoryI
         }
     }
 
+    public function insertGetId(array $data)
+    {
+        // TODO: Implement insertGetId() method.
+    }
 }

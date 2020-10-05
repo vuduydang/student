@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\PusherEvent;
+use App\Repositories\ChatRooms\ChatRoomRepository;
 use App\Repositories\Messages\MessageRepository;
 use App\Repositories\Students\StudentRepository;
-use App\Repositories\Users\UserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Pusher\Pusher;
@@ -13,16 +12,20 @@ use Pusher\Pusher;
 class ChatController extends Controller
 {
     protected $studentRepository;
+    protected $chatroomRepository;
     protected $messageRepository;
-    public function __construct(StudentRepository $student, MessageRepository $message)
+    public function __construct(StudentRepository $student,ChatRoomRepository $chatRoom,MessageRepository $message)
     {
         $this->studentRepository = $student;
+        $this->chatroomRepository = $chatRoom;
         $this->messageRepository = $message;
     }
 
     public function index()
     {
-        return view('chat.index');
+        $rooms = $this->chatroomRepository->getAll();
+        $messages = $this->messageRepository->getAll();
+        return view('chat.index', compact('rooms', 'messages'));
     }
 
     public function admin ()
@@ -35,13 +38,12 @@ class ChatController extends Controller
 
     public function pusher (Request $request)
     {
-        $profile= $this->studentRepository->find($request->get('student'));
-        $data['id'] = $profile->user_id;
-        $data['avatar'] = $profile->avatar;
+        $sender = $this->studentRepository->getProfile(Auth::user());
+        $data['id'] = Auth::id();
+        $data['avatar'] = $sender->avatar;
         $data['token'] = $request->get('_token');
         $data['message'] = $request->get('message');
         $data['timeline'] = date('H:i');
-        $sender = $this->studentRepository->getProfile(Auth::user());
         try {
             $options = array(
                 'cluster' => 'ap1',
@@ -55,9 +57,10 @@ class ChatController extends Controller
                 $options
             );
             $pusher->trigger('Chat', 'send-message', $data);
+            //insert to DB
             $this->messageRepository->create([
-                'sender' => $sender->id,
-                'receiver' => $request->get('student'),
+                'chatroom_id' => $request->get('room_id'),
+                'user_id' => Auth::id(),
                 'message' => $request->get('message'),
             ]);
         } catch (\Exception $e) {

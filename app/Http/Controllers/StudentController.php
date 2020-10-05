@@ -60,7 +60,7 @@ class StudentController extends Controller{
             $data['avatar'] = $this->studentRepository->uploaderImage('create', $request);
         }
         //add user , get id user
-        $data['user_id'] = $this->userRepository->insertGetId($data);
+        $data['user_id'] = $this->userRepository->create($data)->id;
         //add student
         $this->studentRepository->create($data);
         return redirect()->route('students.index')->with('success', 'Add Success Student');
